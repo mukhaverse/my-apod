@@ -1,0 +1,78 @@
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+  background: var(--ink);
+}
+
+.hero__bg-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: .1;
+}
+
+
+.hero__left {
+  position: relative;
+  z-index: 10;
+  padding: 2.5rem 2.5rem 0;
+  align-self: start;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.hero__eyebrow {
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--haze);
+  margin-bottom: 1rem;
+  opacity: 0.6;
+}
+
+.hero__title {
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: white;
+}
+.hero__title em {
+  color: var(--star);
+  font-style: normal;
+}
+
+
+.hero__body-wrap {
+  position: relative;
+  z-index: 10;
+  padding: 0 2.5rem 4rem;
+  align-self: end;
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.hero__body {
+  font-size: 1.3rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+  max-width: 350px;
+}
+
+
+.hero__right {
+  position: relative;
+  z-index: 10;
+  padding: 0 2.5rem 4rem;
+  align-self: end;
+  justify-self: end;
+  grid-column: 2;
+  grid-row: 2;
+}

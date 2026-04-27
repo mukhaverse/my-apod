@@ -1,0 +1,15 @@
+.footer {
+  background: var(--ink);
+  border-top: 1px solid var(--border-dim);
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+.footer a {
+  color: var(--haze);
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+.footer a:hover { opacity: 1; }

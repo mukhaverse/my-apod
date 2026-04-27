@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Born Under This Sky</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/hero.css">
+  <link rel="stylesheet" href="css/pod.css">
+  <link rel="stylesheet" href="css/bdpod.css">
+  <link rel="stylesheet" href="css/result.css">
+  <link rel="stylesheet" href="css/download.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+
+
+
+
+
+  <section class="hero" id="hero">
+
+    <div class="hero__bg-placeholder">
+      <img src="assets/hero2.jpg" alt="">
+    </div>
+
+    <!-- Title: top-left -->
+    <div class="hero__left">
+      <p class="hero__eyebrow">NASA · APOD · Personal Explorer</p>
+      <h1 class="hero__title">
+        Your first moment in <br>
+        <em>The Universe</em>
+      </h1>
+    </div>
+
+    <!-- Description: bottom-left -->
+    <div class="hero__body-wrap">
+      <p class="hero__body">
+        Every day since June 16, 1995, one image has been added to the archive.
+        Find the one from your first day.
+      </p>
+    </div>
+
+    <!-- CTA: bottom-right -->
+    <div class="hero__right">
+      <a href="#birthday" class="btn btn--hero">
+        View your moment <span class="btn-arrow">↗</span>
+      </a>
+    </div>
+
+  </section>
+
+
+
+
+
+
+
+
+
+
+  <section class="apod" id="apod">
+
+    <span class="apod-ghost" aria-hidden="true" id="apod-ghost">APOD</span>
+
+    <div class="apod-line-h" aria-hidden="true"></div>
+    <div class="apod-line-v" aria-hidden="true"></div>
+
+    <!-- Ring now sits directly in .apod, centered to section -->
+    <div class="apod-ring" aria-hidden="true"></div>
+
+    <div class="apod-stage">
+      <div class="apod-frame" id="apod-frame">
+        <div class="apod-placeholder"></div>
+      </div>
+    </div>
+
+    <div class="apod-footer">
+      <div class="apod-meta">
+        <span class="tag" id="apod-date">— — —</span>
+        <h2 class="apod-title" id="apod-title">Today's astronomy picture</h2>
+      </div>
+      <div class="apod-desc">
+        <p class="apod-body" id="apod-explanation">
+          Fetching today's picture from NASA...
+        </p>
+      </div>
+    </div>
+
+  </section>
+
+
+
+
+
+
+
+
+
+
+  <section class="birthday" id="birthday">
+    <span class="birthday-ghost" aria-hidden="true">ARCHIVE</span>
+
+    <div class="birthday-inner">
+
+      <h2 class="birthday-title">The sky you were born into</h2>
+      <p class="birthday-sub">
+        Enter your birthday to see what the universe looked like
+        the day you were born.
+      </p>
+
+      <div class="birthday-form">
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="bday-input">Date of birth</label>
+            <input type="date" id="bday-input" min="1995-06-16" />
+            <span class="form-hint">Archives begin June 16, 1995</span>
+          </div>
+
+          <div class="form-field">
+            <label for="name-input">Your name <em>(optional)</em></label>
+            <input type="text" id="name-input" placeholder="e.g. Layla" maxlength="40" />
+            <span class="form-hint">Personalizes your Polaroid download</span>
+          </div>
+        </div>
+
+        <button class="btn btn--outline" id="explore-btn">
+          Show me my sky <span class="btn-arrow">↗</span>
+        </button>
+
+        <p class="form-error" id="form-error" role="alert"></p>
+
+      </div>
+    </div>
+
+    <div class="pic">
+      <img src="assets/spinny.gif">
+    </div>
+
+  </section>
+
+
+
+
+
+
+
+  <footer class="footer">
+    <p>
+      Images &amp; data from
+      <a href="https://apod.nasa.gov" target="_blank" rel="noopener">NASA APOD</a>
+      &nbsp;·&nbsp; Born Under This Sky
+    </p>
+  </footer>
+
+
+
+
+</body>
+</html>

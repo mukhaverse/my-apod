@@ -26,37 +26,49 @@ background: linear-gradient(180deg, rgba(10, 18, 32, 1) 0%, rgba(0, 0, 0, 1) 100
   white-space: nowrap;
 }
 
+
+
+
 .apod-line-h {
   position: absolute;
-  left: 0; right: 0;
+  left: 0;
+  right: 0;
   top: 50%;
-  height: 1px;
-  background: rgba(198, 202, 211, 0.912);
+  height: 0;
+  border-top: 2px dashed rgba(255, 255, 255, 0.3);
   pointer-events: none;
 }
+
 .apod-line-v {
   position: absolute;
-  top: 0; bottom: 0;
+  top: 0;
+  bottom: 0;
   left: 50%;
-  width: 1px;
-  background: rgba(202, 205, 211, 0.692);
+  width: 0;
+  border-left: 2px dashed rgba(255, 255, 255, 0.3);
   pointer-events: none;
 }
-
-
 
 .apod-ring {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
   width: 400px;
   height: 400px;
   border-radius: 50%;
-  border: 4px dashed rgba(228, 228, 228, 0.371);
+
+  border: 2px dashed rgba(255, 255, 255, 0.4);
+
+  background: var(--ink); 
+
+  z-index: 2;
   pointer-events: none;
-  z-index: 1;
 }
+
+
+
 
 .apod-stage {
   position: relative;
@@ -69,12 +81,19 @@ background: linear-gradient(180deg, rgba(10, 18, 32, 1) 0%, rgba(0, 0, 0, 1) 100
 }
 
 .apod-frame {
-  position: relative;
-  z-index: 10;
-  width: 260px;
-  aspect-ratio: 3 / 4;
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+
+  width: 320px;
+  aspect-ratio: 4 / 5;
+
   overflow: hidden;
   background: var(--mist);
+
+  z-index: 10;
 }
 
 .apod-placeholder {
@@ -92,12 +111,15 @@ background: linear-gradient(180deg, rgba(10, 18, 32, 1) 0%, rgba(0, 0, 0, 1) 100
 
 .apod-footer {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: .9fr 1.6fr;
   align-items: start;
-  gap: 3rem;
+  gap: 30%;
   padding: 0 3rem 3rem;
   position: relative;
   z-index: 10;
+}
+.apod-meta{
+transform: translateY(-45%);
 }
 
 .apod-title {
@@ -115,11 +137,106 @@ background: linear-gradient(180deg, rgba(10, 18, 32, 1) 0%, rgba(0, 0, 0, 1) 100
 }
 
 .apod-body {
-  font-size: 0.78rem;
+  padding-top: 5rem;
+  font-size: 1rem;
   line-height: 1.85;
   color: var(--text-muted);
   display: -webkit-box;
   -webkit-line-clamp: 8;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+
+.apod-frame img,
+.apod-frame iframe {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border: none;
+}
+
+
+
+
+
+
+.apod-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0, 0, 0, 0.7);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+
+  z-index: 999;
+}
+
+.apod-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+.apod-overlay-content {
+  width: min(700px, 90%);
+  max-height: 80vh;
+
+  background: var(--ink);
+  border: 1px solid var(--border-dim);
+
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+/* Close button */
+.apod-overlay-close {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* Overlay text */
+#overlay-title {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+#overlay-text {
+  line-height: 1.8;
+  color: var(--text-muted);
+}
+
+
+.read-more-inline {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 6px;
+  cursor: pointer;
+}
+
+.read-more-icon {
+  color: var(--star); 
+  font-size: 0.9rem;
+  transition: transform 0.2s ease;
+}
+
+.read-more-inline:hover .read-more-icon {
+  transform: translate(2px, -2px);
 }

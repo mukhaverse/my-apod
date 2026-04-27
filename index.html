@@ -61,14 +61,12 @@
 
 
 
-  <section class="apod" id="apod">
+ <section class="apod" id="apod">
 
     <span class="apod-ghost" aria-hidden="true" id="apod-ghost">APOD</span>
 
     <div class="apod-line-h" aria-hidden="true"></div>
     <div class="apod-line-v" aria-hidden="true"></div>
-
-    <!-- Ring now sits directly in .apod, centered to section -->
     <div class="apod-ring" aria-hidden="true"></div>
 
     <div class="apod-stage">
@@ -159,5 +157,18 @@
 
 
 
+  <div class="apod-overlay" id="apod-overlay">
+  <div class="apod-overlay-content">
+    <button class="apod-overlay-close" id="overlay-close">✕</button>
+    <h3 id="overlay-title"></h3>
+    <p id="overlay-text"></p>
+  </div>
+</div>
+
+
+
+
+
+  <script src="js/apod.js"></script>
 </body>
 </html>

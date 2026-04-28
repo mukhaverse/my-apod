@@ -127,7 +127,7 @@
 
 .pic img {
   width: 90%;
-  height: 90%;
+  /* height: 90%; */
   object-fit: cover;
   display: block;
   opacity: .7;

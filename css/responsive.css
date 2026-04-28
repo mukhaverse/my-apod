@@ -1,5 +1,5 @@
 @media (max-width: 680px) {
-  /* Hero collapses to stacked single column */
+
   .hero {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr auto;
@@ -24,4 +24,88 @@
   .apod-footer    { grid-template-columns: 1fr; }
   .form-row       { grid-template-columns: 1fr; }
   .result__layout { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .birthday {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5rem;
+
+    padding: 3rem 1.5rem;
+     height: 120vh;
+  }
+
+  .birthday-inner {
+    max-width: 100%;
+    margin-left: 0;
+  }
+
+  
+.birthday-ghost {
+  bottom: -.5rem;
+  right: -0.05em;
+}
+
+.pic img {
+  width: 100%;
+  /* height: 100%; */
+
+}
+
+
+
+
+}
+
+
+@media (max-width: 768px) {
+
+
+  .apod {
+    padding-top: 15%;
+    min-height: auto;
+  }
+
+
+  .apod-frame {
+    position: relative;
+
+    transform: translate(-72%, 41%);
+
+
+    width: 70%;
+
+  }
+
+
+
+
+  .apod-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 7rem 1.5rem 1rem;
+  }
+
+
+  .apod-meta {
+    transform: none;
+      padding-top: 1rem;
+  }
+  
+
+
+  .apod-body {
+    -webkit-line-clamp: unset;
+    display: block;
+  }
+
+
+
+
+  .apod-body {
+  padding-top: 0;
+  }
 }

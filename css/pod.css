@@ -55,18 +55,17 @@ background: linear-gradient(180deg, rgba(10, 18, 32, 1) 0%, rgba(0, 0, 0, 1) 100
   left: 50%;
   transform: translate(-50%, -50%);
 
-  width: 400px;
-  height: 400px;
-  border-radius: 50%;
+  width: min(80vw, 400px);
+  aspect-ratio: 1 / 1;
 
+  border-radius: 50%;
   border: 2px dashed rgba(255, 255, 255, 0.4);
 
-  background: var(--ink); 
+  background: var(--ink);
 
   z-index: 2;
   pointer-events: none;
 }
-
 
 
 
@@ -85,7 +84,7 @@ background: linear-gradient(180deg, rgba(10, 18, 32, 1) 0%, rgba(0, 0, 0, 1) 100
 
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -30%);
+  transform: translate(-50%, -27%);
 
   width: 320px;
   aspect-ratio: 4 / 5;
@@ -132,8 +131,8 @@ transform: translateY(-45%);
 }
 
 .apod .tag {
-  color: var(--text-muted);
-  border-color: rgba(255, 255, 255, 0.2);
+  color: var(--star);
+  border-color:var(--star);
 }
 
 .apod-body {
@@ -199,7 +198,9 @@ transform: translateY(-45%);
   overflow-y: auto;
 }
 
-/* Close button */
+
+
+
 .apod-overlay-close {
   position: absolute;
   top: 20px;

@@ -112,3 +112,9 @@ body {
 .btn--primary:hover { background: #162338; }
 
 .btn-arrow { opacity: 0.7; font-size: 0.95rem; }
+
+.arrow,
+.read-more-icon {
+  font-family: inherit;
+  font-variant-emoji: text;
+}

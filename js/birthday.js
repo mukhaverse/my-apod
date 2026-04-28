@@ -3,9 +3,23 @@ const API_KEY = "NOn1aJPhv7MbOkQu1zu46bY3RJqnZK89YGd77lYC";
 
 
 
-const BASE_URL = "http://localhost:3001";
+// const BASE_URL = "http://localhost:3001";
 
 // const BASE_URL = "https://my-apod.onrender.com";
+
+const isLocal = window.location.hostname === "localhost";
+
+const BASE_URL = isLocal
+  ? "http://localhost:3001"
+  : "https://my-apod.onrender.com";
+
+// 📱 simple mobile detection
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+// 🚫 disable download when mobile + production
+const disableDownload = !isLocal && isMobile;
+
+
 
 
 const bdayInput = document.getElementById("bday-input");
@@ -63,13 +77,16 @@ function renderResult(data) {
   controls.className = "pic-controls";
 
   controls.innerHTML = `
-    <button class="btn btn--outline" id="mode-toggle">
-      Polaroid
-    </button>
-    <button class="btn btn--hero" id="download-btn">
-      Download
-    </button>
-  `;
+  <button class="btn btn--outline" id="mode-toggle">
+    Polaroid
+  </button>
+
+  ${
+    disableDownload
+      ? `<span class="download-disabled">Download coming soon</span>`
+      : `<button class="btn btn--hero" id="download-btn">Download</button>`
+  }
+`;
 
   picContainer.appendChild(mediaWrapper);
   picContainer.appendChild(controls);
@@ -85,13 +102,17 @@ function renderResult(data) {
     await renderMedia(data, mediaWrapper);
   });
 
-  document.getElementById("download-btn").addEventListener("click", () => {
+  const downloadBtn = document.getElementById("download-btn");
+
+if (downloadBtn) {
+  downloadBtn.addEventListener("click", () => {
     if (currentMode === "raw") {
       downloadOriginal();
     } else {
       downloadPolaroid();
     }
   });
+}
 
   document.querySelector(".birthday").classList.add("expanded");
 

@@ -3,7 +3,7 @@
 
 @media (max-width: 680px) {
 
-  
+
   .hero {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr auto;
@@ -124,7 +124,7 @@
   .pic iframe,
   .pic canvas {
     width: 100%;
-    max-height: 240px;
+    max-height: 270px;
     object-fit: contain;
   }
 

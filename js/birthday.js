@@ -1,9 +1,12 @@
 const API_KEY = "NOn1aJPhv7MbOkQu1zu46bY3RJqnZK89YGd77lYC";
 
 const isLocal = window.location.hostname === "localhost";
-const BASE_URL = isLocal
-  ? "http://localhost:3001"
-  : "https://my-apod.onrender.com";
+// const BASE_URL = isLocal
+//   ? "http://localhost:3001"
+//   : "https://my-apod.onrender.com";
+
+  const BASE_URL = "https://my-apod.onrender.com";
+
 
 // 📱 simple mobile detection
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -282,10 +285,15 @@ async function createPolaroidCanvas(data) {
 // ─── Utility ──────────────────────────────────────────────────────────────────
 
 function triggerDownload(blob, filename) {
-  const url  = URL.createObjectURL(blob);
+  // Use window.URL explicitly — bare `URL` can be shadowed in some environments
+  const objectUrl = window.URL.createObjectURL(blob);
   const link = document.createElement("a");
-  link.href  = url;
+  link.href = objectUrl;
   link.download = filename;
+  // Link must be in the DOM for Firefox and some mobile browsers to trigger the download
+  document.body.appendChild(link);
   link.click();
-  URL.revokeObjectURL(url);
+  document.body.removeChild(link);
+  // Delay revoke so the browser has time to start the download
+  setTimeout(() => window.URL.revokeObjectURL(objectUrl), 1000);
 }

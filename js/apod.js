@@ -37,7 +37,7 @@ function renderAPOD(data) {
     <p class="apod-body">
       ${data.explanation.slice(0, 180)}...
       <span class="read-more-inline">
-        <span class="read-more-icon">↗</span>
+        <span class="read-more-icon">&rarr;</span>
       </span>
     </p>
   `;

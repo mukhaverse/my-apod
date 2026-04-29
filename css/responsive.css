@@ -158,7 +158,24 @@
 }
 
 @media (max-width: 768px) {
-  .polaroid-preview.active {
-    padding: 4px 4px 28px;
+
+  /* give the whole section breathing room */
+  .birthday {
+    padding: 3rem 2rem 4rem;   /* 👈 increase side padding */
   }
+
+  /* shrink the image container */
+  .pic {
+    width: 100%;
+    max-width: 280px;          /* 👈 THIS is the key fix */
+    margin: 2rem auto 0;
+  }
+
+  /* keep image controlled */
+  .pic img,
+  .pic canvas,
+  .pic iframe {
+    max-height: 260px;
+  }
+
 }

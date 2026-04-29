@@ -82,9 +82,9 @@
 .form-field input::placeholder { color: rgba(255, 255, 255, 0.2); }
 
 .form-hint {
-  font-size: 0.68rem;
+  font-size: 0.9rem;
   letter-spacing: 0.04em;
-  color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.519);
 }
 
 .form-error {

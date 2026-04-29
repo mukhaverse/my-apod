@@ -156,3 +156,9 @@
     padding-bottom: 5rem;
   }
 }
+
+@media (max-width: 768px) {
+  .polaroid-preview.active {
+    padding: 8px 8px 44px;
+  }
+}

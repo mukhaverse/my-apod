@@ -101,11 +101,11 @@ function renderResult(data) {
     <button class="btn btn--outline" id="mode-toggle">Polaroid</button>
     ${
       disableDownload
-        ? `<span class="download-disabled">Download coming soon</span>`
+        ? `<button class="btn btn--hero" id="download-btn">Download</button>`
         : `<button class="btn btn--hero" id="download-btn">Download</button>`
     }
   `;
-
+// here I made it all so there isno disable
   picContainer.appendChild(mediaWrapper);
   picContainer.appendChild(controls);
 

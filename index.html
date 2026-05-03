@@ -21,12 +21,12 @@
 
   <section class="hero" id="hero">
 
-    <div class="hero__bg-placeholder">
+    <div class="hero__bg-placeholder animate-item">
       <img src="assets/hero2.jpg" alt="">
     </div>
 
   
-    <div class="hero__left">
+    <div class="hero__left animate-item">
       <p class="hero__eyebrow">NASA · APOD · Personal Explorer</p>
       <h1 class="hero__title">
         Your first moment in <br>
@@ -35,7 +35,7 @@
     </div>
 
     
-    <div class="hero__body-wrap">
+    <div class="hero__body-wrap animate-item">
       <p class="hero__body">
         Every day since June 16, 1995, one image has been added to the archive.
         Find the one from your first day.
@@ -43,7 +43,7 @@
     </div>
 
     
-    <div class="hero__right">
+    <div class="hero__right animate-item">
       <a href="#birthday" class="btn btn--hero">
         View your moment <span class="btn-arrow">&rarr;</span>
       </a>
@@ -62,24 +62,24 @@
 
  <section class="apod" id="apod">
 
-    <span class="apod-ghost" aria-hidden="true" id="apod-ghost">APOD</span>
+    <span class="apod-ghost animate-item" aria-hidden="true" id="apod-ghost">APOD</span>
 
     <div class="apod-line-h" aria-hidden="true"></div>
     <div class="apod-line-v" aria-hidden="true"></div>
     <div class="apod-ring" aria-hidden="true"></div>
 
-    <div class="apod-stage">
+    <div class="apod-stage animate-item">
       <div class="apod-frame" id="apod-frame">
         <div class="apod-placeholder"></div>
       </div>
     </div>
 
-    <div class="apod-footer">
-      <div class="apod-meta">
+    <div class="apod-footer ">
+      <div class="apod-meta animate-item">
         <span class="tag" id="apod-date">— — —</span>
         <h2 class="apod-title" id="apod-title">Today's astronomy picture</h2>
       </div>
-      <div class="apod-desc">
+      <div class="apod-desc animate-item">
         <p class="apod-body" id="apod-explanation">
           Fetching today's picture from NASA...
         </p>
@@ -100,15 +100,15 @@
   <section class="birthday" id="birthday">
     <span class="birthday-ghost" aria-hidden="true">ARCHIVE</span>
 
-    <div class="birthday-inner">
+    <div class="birthday-inner ">
 
-      <h2 class="birthday-title">The sky you were born into</h2>
-      <p class="birthday-sub">
+      <h2 class="birthday-title animate-item">The sky you were born into</h2>
+      <p class="birthday-sub animate-item">
         Enter your birthday to see what the universe looked like
         the day you were born.
       </p>
 
-      <div class="birthday-form">
+      <div class="birthday-form animate-item">
 
         <div class="form-row">
           <div class="form-field">
@@ -133,8 +133,8 @@
       </div>
     </div>
 
-    <div class="pic">
-      <img src="assets/spinny.gif">
+    <div class="pic animate-item">
+      <img src="assets/spinny.gif" class="spinny">
     </div>
 
   </section>
@@ -170,5 +170,6 @@
 
   <script src="js/apod.js"></script>
   <script src="js/birthday.js"></script>
+   <script src="js/animation.js"></script>
 </body>
 </html>

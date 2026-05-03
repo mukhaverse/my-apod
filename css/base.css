@@ -124,3 +124,31 @@ body {
   font-family: inherit;
   font-variant-emoji: text;
 }
+
+
+
+
+
+.animate-item {
+  opacity: 0;
+  transform: translateY(25px);
+  filter: blur(6px);
+  transition: opacity 0.6s ease, transform 0.6s ease, filter 0.6s ease;
+}
+
+.animate-item.show {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+
+
+
+.hero__bg-placeholder.animate-item {
+  opacity: 0;
+}
+
+.hero__bg-placeholder.animate-item.show {
+  opacity: 0.1; 
+}

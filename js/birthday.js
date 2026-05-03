@@ -1,18 +1,13 @@
 const API_KEY = "NOn1aJPhv7MbOkQu1zu46bY3RJqnZK89YGd77lYC";
 
 const isLocal = window.location.hostname === "localhost";
-// const BASE_URL = isLocal
-//   ? "http://localhost:3001"
-//   : "https://my-apod.onrender.com";
+const BASE_URL = "https://my-apod.onrender.com";
 
-  const BASE_URL = "https://my-apod.onrender.com";
-
-
-// 📱 simple mobile detection
-const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-// 🚫 disable download when mobile + production
-const disableDownload = !isLocal && isMobile;
+//  simple mobile detection
+// const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+// both are not nedded now I made the doanload work!!!
+// disable download when mobile + production
+// const disableDownload = !isLocal && isMobile;
 
 const bdayInput   = document.getElementById("bday-input");
 const nameInput   = document.getElementById("name-input");
@@ -23,26 +18,39 @@ let currentData = null;
 let currentMode = "raw";
 
 
-// ─── Proxy URL helper ────────────────────────────────────────────────────────
+
+bdayInput.addEventListener("change", () => {
+  document.getElementById("form-error").style.display = "none";
+});
+
+nameInput.addEventListener("keyup", () => {
+  nameInput.style.borderColor = nameInput.value ? "#cab437" : "";
+});
+
+
+
+
+
+
 
 function proxyUrl(rawUrl) {
-  // Always force HTTPS before encoding — mirrors what the server does
   const secure = rawUrl.replace(/^http:\/\//i, "https://");
   return `${BASE_URL}/apod-image?url=${encodeURIComponent(secure)}`;
 }
 
 
-// ─── Fetch an image via proxy and return an <img> element ───────────────────
+
+
+
 
 function loadProxiedImage(rawUrl, alt = "") {
   return new Promise((resolve, reject) => {
     const img = new Image();
-    img.crossOrigin = "anonymous";  // needed for canvas taint-free export
+    img.crossOrigin = "anonymous";
 
     img.onload = () => resolve(img);
     img.onerror = () => {
-      // Proxy may have returned a JSON error body — surface a clear message
-      reject(new Error("Image failed to load through proxy. NASA may be temporarily unavailable."));
+      reject(new Error("Image failed to load through proxy."));
     };
 
     img.src = proxyUrl(rawUrl);
@@ -51,19 +59,40 @@ function loadProxiedImage(rawUrl, alt = "") {
 }
 
 
-// ─── Explore button ──────────────────────────────────────────────────────────
+
+
 
 exploreBtn.addEventListener("click", () => {
   const date = bdayInput.value;
-  if (!date) return;
+  const err = document.getElementById("form-error");
+
+  if (!date) {
+    err.textContent = "Please select your birth date.";
+    err.style.display = "block";
+    return;
+  }
+
+  if (date < "1995-06-16") {
+    err.textContent = "Date must be after June 16, 1995.";
+    err.style.display = "block";
+    return;
+  }
+
+  err.style.display = "none";
   fetchByDate(date);
 });
 
 
-// ─── NASA APOD API fetch ─────────────────────────────────────────────────────
 
+
+
+
+
+// APOD API fetch 
 async function fetchByDate(date) {
   try {
+
+
     picContainer.innerHTML = `<div class="spinner"></div>`;
 
     const res = await fetch(
@@ -71,45 +100,77 @@ async function fetchByDate(date) {
     );
 
     if (!res.ok) {
+
       const body = await res.json().catch(() => ({}));
       throw new Error(body.msg || `NASA API error: ${res.status}`);
+
     }
 
     const data = await res.json();
     currentData = data;
     renderResult(data);
 
+
+
   } catch (err) {
-    picContainer.innerHTML = `<p class="proxy-error">⚠️ ${err.message}</p>`;
+
+    picContainer.innerHTML = "";
+
+    const errMsg = document.createElement("p");
+
+    errMsg.className = "proxy-error";
+
+    errMsg.textContent = "Failed to load data!. Try another date.";
+
+    picContainer.appendChild(errMsg);
     console.error(err);
+
+
   }
 }
 
 
-// ─── Render result shell (controls + media area) ─────────────────────────────
+// ─── Render result 
 
 function renderResult(data) {
+
   picContainer.innerHTML = "";
 
   const mediaWrapper = document.createElement("div");
+
   mediaWrapper.className = "pic-media";
 
   const controls = document.createElement("div");
   controls.className = "pic-controls";
 
+
+
   controls.innerHTML = `
     <button class="btn btn--outline" id="mode-toggle">Polaroid</button>
-    ${
-      disableDownload
-        ? `<button class="btn btn--hero" id="download-btn">Download</button>`
-        : `<button class="btn btn--hero" id="download-btn">Download</button>`
-    }
+    <button class="btn btn--hero" id="download-btn">Download</button>
+    <button class="btn btn--outline" id="clear-btn">Clear</button>
   `;
-// here I made it all so there isno disable
+
   picContainer.appendChild(mediaWrapper);
   picContainer.appendChild(controls);
 
   renderMedia(data, mediaWrapper);
+
+  
+
+  const info = document.createElement("div");
+  info.className = "pic-info";
+
+  info.innerHTML = `
+    <p><strong>Title:</strong> ${data.title}</p>
+    <p><strong>Date:</strong> ${data.date}</p>
+    <p><strong>Type:</strong> ${data.media_type}</p>
+    <p><strong>Copyright:</strong> ${data.copyright || "NASA / Public"}</p>
+  `;
+
+  picContainer.appendChild(info);
+
+
 
   document.getElementById("mode-toggle").addEventListener("click", () => {
     currentMode = currentMode === "raw" ? "polaroid" : "raw";
@@ -118,25 +179,44 @@ function renderResult(data) {
     renderMedia(data, mediaWrapper);
   });
 
-  const downloadBtn = document.getElementById("download-btn");
-  if (downloadBtn) {
-    downloadBtn.addEventListener("click", () => {
-      if (currentMode === "raw") downloadOriginal();
-      else downloadPolaroid();
-    });
-  }
+
+
+  document.getElementById("download-btn").addEventListener("click", () => {
+
+    if (currentMode === "raw") downloadOriginal();
+    else downloadPolaroid();
+
+  });
+
+
+ 
+  document.getElementById("clear-btn").addEventListener("click", () => {
+    picContainer.innerHTML = `<img src="assets/spinny.gif">`;
+
+    currentData = null;
+    currentMode = "raw";
+
+    document.querySelector(".birthday").classList.remove("expanded");
+
+  });
 
   document.querySelector(".birthday").classList.add("expanded");
+
+
 }
 
 
-// ─── Render media (raw or polaroid) ──────────────────────────────────────────
+
+
+
+
+
 
 async function renderMedia(data, container) {
+
   container.innerHTML = "";
 
   if (data.media_type !== "image") {
-    // Video / iframe fallback (proxy not needed)
     const iframe = document.createElement("iframe");
     iframe.src = data.url;
     iframe.allowFullscreen = true;
@@ -144,7 +224,7 @@ async function renderMedia(data, container) {
     return;
   }
 
-  // Show a lightweight spinner while the image loads through the proxy
+
   container.innerHTML = `<div class="spinner"></div>`;
 
   try {
@@ -160,6 +240,7 @@ async function renderMedia(data, container) {
       wrapper.className = "polaroid-preview";
 
       const caption = document.createElement("div");
+
       caption.className = "polaroid-caption";
 
       const name = nameInput.value || "";
@@ -169,28 +250,35 @@ async function renderMedia(data, container) {
         day: "numeric",
       });
 
+
       caption.textContent = `${name}${name ? " • " : ""}${date}`;
 
       wrapper.appendChild(img);
       wrapper.appendChild(caption);
       container.appendChild(wrapper);
 
-      // Trigger CSS transition
       setTimeout(() => wrapper.classList.add("active"), 50);
+
     }
 
   } catch (err) {
+
     container.innerHTML = `
       <p class="proxy-error">
-        ⚠️ ${err.message}<br>
-        <small>You can still <a href="${data.url}" target="_blank" rel="noopener">view the original on NASA ↗</a></small>
+         Image failed to load!.<br>
+        <small><a href="${data.url}" target="_blank">View original ↗</a></small>
       </p>
     `;
   }
+
+
 }
 
 
-// ─── Download: original ───────────────────────────────────────────────────────
+
+
+
+
 
 async function downloadOriginal() {
   if (!currentData || currentData.media_type !== "image") return;
@@ -198,22 +286,19 @@ async function downloadOriginal() {
   try {
     const res = await fetch(proxyUrl(currentData.url));
 
-    if (!res.ok) {
-      const body = await res.json().catch(() => ({}));
-      throw new Error(body.error || `Proxy returned ${res.status}`);
-    }
+    if (!res.ok) throw new Error("Download failed");
 
     const blob = await res.blob();
     triggerDownload(blob, "nasa-apod.jpg");
 
   } catch (err) {
-    alert(`Download failed: ${err.message}`);
+    alert(`Download failed`);
     console.error(err);
   }
 }
 
 
-// ─── Download: polaroid ───────────────────────────────────────────────────────
+
 
 async function downloadPolaroid() {
   if (!currentData || currentData.media_type !== "image") return;
@@ -221,18 +306,24 @@ async function downloadPolaroid() {
   try {
     const canvas = await createPolaroidCanvas(currentData);
     canvas.toBlob((blob) => {
-      if (!blob) { alert("Canvas export failed."); return; }
+      if (!blob) return;
       triggerDownload(blob, "polaroid.png");
     }, "image/png");
 
   } catch (err) {
-    alert(`Polaroid download failed: ${err.message}`);
+    alert(`Polaroid download failed`);
     console.error(err);
   }
 }
 
 
-// ─── Canvas builder for polaroid ─────────────────────────────────────────────
+
+
+
+
+
+
+
 
 async function createPolaroidCanvas(data) {
   const img = await loadProxiedImage(data.url, data.title);
@@ -243,7 +334,6 @@ async function createPolaroidCanvas(data) {
   const bottom = 160;
   const imgW   = width - side * 2;
 
-  // Preserve aspect ratio of the actual loaded image
   const aspect = img.naturalHeight / img.naturalWidth;
   const imgH   = Math.round(imgW * aspect);
   const height = top + imgH + bottom;
@@ -282,18 +372,19 @@ async function createPolaroidCanvas(data) {
 }
 
 
-// ─── Utility ──────────────────────────────────────────────────────────────────
+
+
+
 
 function triggerDownload(blob, filename) {
-  // Use window.URL explicitly — bare `URL` can be shadowed in some environments
   const objectUrl = window.URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = objectUrl;
   link.download = filename;
-  // Link must be in the DOM for Firefox and some mobile browsers to trigger the download
+
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
-  // Delay revoke so the browser has time to start the download
+
   setTimeout(() => window.URL.revokeObjectURL(objectUrl), 1000);
 }

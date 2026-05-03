@@ -133,6 +133,13 @@
   overflow: hidden;
 }
 
+.spinny{
+  z-index: -5;
+}
+
+
+
+
 .pic img,
 .pic iframe {
   width: 100%;
@@ -263,4 +270,13 @@
   color: rgba(255,255,255,0.4);
   font-size: 0.85rem;
   letter-spacing: 0.05em;
+}
+
+
+.pic-info {
+  text-align: center;
+  font-size: 0.9rem;
+  color: white;
+  margin-top: 1rem;
+  line-height: 1.6;
 }

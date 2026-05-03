@@ -102,6 +102,7 @@
   position: absolute;
   bottom: -2rem;
   right: -0.05em;
+  z-index: 2;
 
   font-size: clamp(6rem, 18vw, 14rem);
   font-weight: 900;
